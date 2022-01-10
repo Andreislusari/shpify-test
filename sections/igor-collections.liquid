@@ -1,0 +1,86 @@
+{{ 'component-custom-collection.css' | asset_url | stylesheet_tag }}
+
+<div class="section_container">
+  <div class="main_wrapper">
+
+    {% if section.settings.title != blank %}
+      <div class="section_header center">
+        <h2 class="title">{{ section.settings.title }}</h2>
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="collection-list collection-slider">
+        {%- for block in section.blocks -%}
+          <div class="collection-item">
+            <div class="collection-item-wrapper">
+              <div class="image_wrapper">
+                {% if block.settings.collection.image %}
+                  {% render 'igor-responsive-image', image: block.settings.collection.image %}
+                {% else %}
+                  {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                {% endif %}
+              </div>
+              <div class="collection_title">
+                <h3 class="h2 t-bold">{{ block.settings.collection.title | default: 'Collection' }}</h3>
+              </div>
+              <div class="btn_wrapper">
+                <a class="button button--secondary" href="{{ block.settings.collection.url | default: '#' }}">Shop Now</a>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Igor collection",
+  "class": "custom-collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "TItle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Igor-Collection",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
