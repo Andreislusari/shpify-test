@@ -1,78 +1,92 @@
-{% assign set = section.settings %}
+{% assign hero = section.settings %}
 
-{{ 'component-custom-banner.css' | asset_url | stylesheet_tag }}
+{{ 'hero-section.css' | asset_url | stylesheet_tag }}
 
-{% if set.image != blank %}
+{% if hero.image != blank %}
 
-  <div class="section_container">
+<div class="section_container">
 
-    <div class="main_wrapper">
+  <div class="main_wrapper">
 
-      <div class="hero-banner-wrapper">
-        
-        <div class="image_wrapper small-hide">
-          {% render 'igor-responsive-image', image: set.image %}
+    <div class="hero-section-wrapper">
+
+      <div class="image_wrapper small-hide">
+        {% render 'hero-image', image: hero.image %}
+      </div>
+
+      <div class="image_wrapper medium-hide large-up-hide">
+        {% assign phone_image = hero.image_mob | default: hero.image %}
+        {% render 'hero-image', image: phone_image %}
+      </div>
+
+      <div class="content_wrapper center">
+        {% if hero.title != blank %}
+        <h2 class="title text-white text-large">{{ hero.title }}</h2>
+        {% endif %}
+
+        {% if hero.btn_link != blank and hero.btn_label != blank %}
+        <div class="btn_wrapper">
+          <a class="button button--secondary" href="{{ hero.btn_link }}">{{ hero.btn_label }}</a>
         </div>
-        <div class="image_wrapper medium-hide large-up-hide">
-          {% assign mob_image = set.image_mob | default: set.image %}
-          {% render 'igor-responsive-image', image: mob_image %}
-        </div>
-
-        <div class="content_wrapper center">
-          {% if set.title != blank %}
-            <h2 class="title t-large t-bold">{{ set.title }}</h2>
-          {% endif %}
-
-          {% if set.btn_link != blank and set.btn_label != blank %}
-            <div class="btn_wrapper">
-              <a class="button button--secondary" href="{{ set.btn_link }}">{{ set.btn_label }}</a>
-            </div>
-          {% endif %}
-        </div>
-
+        {% endif %}
+      </div>
+      <div class="icon_warpper">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="23.5" transform="rotate(90 24 24)" stroke="white" />
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M23.9645 31.0352L23.2574 30.328L20.4289 27.4996L21.136 26.7925L23.4644 29.1208L23.4644 17L24.4644 17L24.4644 29.1211L26.7929 26.7925L27.5 27.4996L24.6716 30.328L23.9645 31.0352Z"
+            fill="white" />
+        </svg>
       </div>
 
     </div>
 
   </div>
 
+</div>
+
 {% endif %}
 
 
 {% schema %}
 {
-  "name": "hero-section",
-  "class": "hero-section",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title"
-    },
-    {
-      "type": "header",
-      "content": "Button"
-    },
-    {
-      "type": "text",
-      "id": "btn_label",
-      "label": "Button label"
-    },
-    {
-      "type": "url",
-      "id": "btn_link",
-      "label": "Button link"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Hero-Section"
-    }
-  ]
+"name": "hero-section",
+"class": "hero-section",
+"settings": [
+{
+"type": "image_picker",
+"id": "image",
+"label": "Image"
+},
+{
+"type": "image_picker",
+"id": "image_mob",
+"label": "Image (phone)"
+},
+{
+"type": "text",
+"id": "title",
+"label": "Title"
+},
+{
+"type": "header",
+"content": "Button"
+},
+{
+"type": "text",
+"id": "btn_label",
+"label": "Button label"
+},
+{
+"type": "url",
+"id": "btn_link",
+"label": "Button link"
+}
+],
+"presets": [
+{
+"name": "Hero-Section"
+}
+]
 }
 {% endschema %}

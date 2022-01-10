@@ -1,0 +1,78 @@
+@font-face {
+    font-family: "GT America";
+    src: url("./GT-America-Regular.ttf");
+}
+
+.hero-section-wrapper {
+    font-family: "GT America";
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.text-large {
+    font-family: GT America;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 150px;
+    line-height: 130px;
+}
+
+@media (max-width: 767px) {
+    .text-large {
+        font-size: 60px;
+        line-height: 60px;
+    }
+}
+
+
+
+.shopify-section.hero-section .hero-section-wrapper {
+    position: relative;
+}
+
+.shopify-section.hero-section .hero-section-wrapper .content_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+.shopify-section.hero-section .hero-section-wrapper .title {
+    margin-top: 0px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.shopify-section.hero-section .hero-section-wrapper .btn_wrapper {
+    margin-top: 30px;
+}
+
+.shopify-section.hero-section .hero-section-wrapper a {
+    border: 1px solid #fff;
+    box-shadow: none;
+    color: #fff;
+    width: 240px;
+    height: 56px;
+}
+
+.shopify-section.hero-section .icon_warpper{
+    position: absolute;
+    bottom: 30px;
+    right: 50%;
+    transform: translate(50%, 0);
+    cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .shopify-section.hero-section .hero-section-wrapper a {
+        width: 180px;
+        padding-left: 0px;
+        padding-right: 0px;
+        text-align: center;
+    }
+}

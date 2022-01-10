@@ -1,83 +1,98 @@
-{{ 'component-custom-collection.css' | asset_url | stylesheet_tag }}
+{{ 'collection-slider.css' | asset_url | stylesheet_tag }}
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<div class="section_container">
+<div class="section_container" style="margin-top: 50px;">
   <div class="main_wrapper">
 
     {% if section.settings.title != blank %}
-      <div class="section_header center">
-        <h2 class="title">{{ section.settings.title }}</h2>
-      </div>
+    <div class="section_header center">
+      <h2 class="title">{{ section.settings.title }}</h2>
+    </div>
     {% endif %}
 
     {% if section.blocks.size > 0 %}
-      <div class="collection-list collection-slider">
-        {%- for block in section.blocks -%}
-          <div class="collection-item">
-            <div class="collection-item-wrapper">
-              <div class="image_wrapper">
-                {% if block.settings.collection.image %}
-                  {% render 'igor-responsive-image', image: block.settings.collection.image %}
-                {% else %}
-                  {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
-                {% endif %}
-              </div>
-              <div class="collection_title">
-                <h3 class="h2 t-bold">{{ block.settings.collection.title | default: 'Collection' }}</h3>
-              </div>
-              <div class="btn_wrapper">
-                <a class="button button--secondary" href="{{ block.settings.collection.url | default: '#' }}">Shop Now</a>
-              </div>
+    <div class="collection-list collection-slider">
+      <div id="mixedSlider">
+        <div class="MS-content">
+          {%- for block in section.blocks -%}
+          {% if block.settings.collection.image %}
+          {% render 'slider-image', image: block.settings.collection.image, col: block.settings.collection %}
+          {% endif %}
+          {%- endfor -%}
+        </div>
+        <div class="MS-controls">
+          <button class="MS-left">
+            <div data-u="arrowleft" class="jssora073" style="width:50px;height:50px;top:0px;left:30px;"
+              data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+              <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <path class="a"
+                  d="M4037.7,8357.3l5891.8,5891.8c100.6,100.6,219.7,150.9,357.3,150.9s256.7-50.3,357.3-150.9 l1318.1-1318.1c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3L7745.9,8000l4216.4-4216.4 c100.6-100.6,150.9-219.7,150.9-357.3c0-137.6-50.3-256.7-150.9-357.3l-1318.1-1318.1c-100.6-100.6-219.7-150.9-357.3-150.9 s-256.7,50.3-357.3,150.9L4037.7,7642.7c-100.6,100.6-150.9,219.7-150.9,357.3C3886.8,8137.6,3937.1,8256.7,4037.7,8357.3 L4037.7,8357.3z">
+                </path>
+              </svg>
             </div>
-          </div>
-        {%- endfor -%}
+          </button>
+          <button class="MS-right">
+            <div data-u="arrowright" class="jssora073" style="width:50px;height:50px;top:0px;right:30px;"
+              data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+              <svg viewbox="0 0 16000 16000" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+                <path class="a"
+                  d="M11962.3,8357.3l-5891.8,5891.8c-100.6,100.6-219.7,150.9-357.3,150.9s-256.7-50.3-357.3-150.9 L4037.7,12931c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3L8254.1,8000L4037.7,3783.6 c-100.6-100.6-150.9-219.7-150.9-357.3c0-137.6,50.3-256.7,150.9-357.3l1318.1-1318.1c100.6-100.6,219.7-150.9,357.3-150.9 s256.7,50.3,357.3,150.9l5891.8,5891.8c100.6,100.6,150.9,219.7,150.9,357.3C12113.2,8137.6,12062.9,8256.7,11962.3,8357.3 L11962.3,8357.3z">
+                </path>
+              </svg>
+            </div>
+          </button>
+        </div>
       </div>
+    </div>
     {% endif %}
-
   </div>
 </div>
-
+<script src="{{ 'multislider.js' | asset_url }}"></script>
+<script>
+  $('#mixedSlider').multislider({
+    duration: 750,
+    interval: 3000
+  });
+</script>
 {% schema %}
 {
-  "name": "collection-slider",
-  "class": "collection-slider",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "TItle"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "collection",
-      "name": "Collection",
-      "settings": [
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Collection"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Collection Slider",
-      "blocks": [
-        {
-          "type": "collection"
-        },
-        {
-          "type": "collection"
-        },
-        {
-          "type": "collection"
-        },
-        {
-          "type": "collection"
-        },
-      ]
-    }
-  ]
+"name": "Collection Slider",
+"class": "collection-slider",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "TItle"
+}
+],
+"blocks": [
+{
+"type": "collection",
+"name": "Collection",
+"settings": [
+{
+"type": "collection",
+"id": "collection",
+"label": "Collection"
+}
+]
+}
+],
+"presets": [
+{
+"name": "Collection Slider",
+"blocks": [
+{
+"type": "collection"
+},
+{
+"type": "collection"
+},
+{
+"type": "collection"
+}
+]
+}
+]
 }
 {% endschema %}
