@@ -30,7 +30,7 @@
         </div>
         {% endif %}
       </div>
-      <div class="icon_warpper">
+      <div class="icon_warpper hero-hit-icon" onclick="scrollNextSection()">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="24" cy="24" r="23.5" transform="rotate(90 24 24)" stroke="white" />
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -42,7 +42,12 @@
     </div>
 
   </div>
-
+  <script>
+    let scrollNextSection = function () {
+      let target = document.getElementsByClassName("collection-slider")[0];
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
 </div>
 
 {% endif %}
